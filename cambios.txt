@@ -1,0 +1,17 @@
+Cambio1 = condicion de victoria (torres eliminadas)
+Cambio5 = Cambiar sprite en torres
+cambio6 = Añadir easteregg
+cambio7 = corregir error balas
+cambio9 = recuperacion de vida
+
+
+cambio8 = Añadir bombas -opcional
+
+
+cambio2 = Animacion player
+cambio3 = Animacion Enemigos
+cambio4 = Construccion escenario
+
+
+
+
