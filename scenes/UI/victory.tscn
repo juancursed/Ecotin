@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://1i76v8rfrsbf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jbdo6"]
+line_spacing = 9.0
+font_size = 60
+
+[node name="victory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 417.0
+offset_top = 190.0
+offset_right = 773.0
+offset_bottom = 324.0
+text = "GANASTE !!!"
+label_settings = SubResource("LabelSettings_jbdo6")
+horizontal_alignment = 1
+vertical_alignment = 1

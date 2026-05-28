@@ -1,10 +1,11 @@
-[gd_scene load_steps=45 format=4 uid="uid://dtqymwh7ct3hb"]
+[gd_scene load_steps=46 format=4 uid="uid://dtqymwh7ct3hb"]
 
 [ext_resource type="Texture2D" uid="uid://giiviclkjmpk" path="res://assets/world-1/1-1.png" id="1_mli2r"]
 [ext_resource type="Script" uid="uid://drk3dhwaoi8om" path="res://scenes/world/main.gd" id="1_wbupf"]
 [ext_resource type="PackedScene" uid="uid://bk5lppk8vrnrb" path="res://scenes/player/player.tscn" id="2_mli2r"]
 [ext_resource type="PackedScene" uid="uid://bsbjpf1s3oob" path="res://scenes/enemies/enemy_generator.tscn" id="3_7tdlr"]
 [ext_resource type="Texture2D" uid="uid://bd05nx2wy88so" path="res://assets/world-1/1-10.png" id="3_tt8nk"]
+[ext_resource type="PackedScene" uid="uid://dtqhic7v7eqq6" path="res://scenes/items/fixer.tscn" id="6_tt8nk"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_wbupf"]
 tile_data = PackedInt32Array(0, 393218, 0, 65536, 393218, 1, 131072, 393218, 2, 196608, 393218, 3, 262144, 393218, 4, 327680, 393218, 5, 1, 458754, 0, 65537, 458754, 1, 131073, 458754, 2, 196609, 458754, 3, 262145, 458754, 4, 327681, 458754, 5, 2, 524290, 0, 65538, 524290, 1, 131074, 524290, 2, 196610, 524290, 3, 262146, 524290, 4, 327682, 524290, 5, 3, 589826, 0, 65539, 589826, 1, 131075, 589826, 2, 196611, 589826, 3, 262147, 589826, 4, 327683, 589826, 5)
@@ -2298,7 +2299,7 @@ metadata/_edit_lock_ = true
 [node name="EnemyGenerator" parent="." instance=ExtResource("3_7tdlr")]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(415, -1327)
+position = Vector2(-460, -1492)
 
 [node name="Paredes" type="Node2D" parent="."]
 
@@ -2322,8 +2323,14 @@ shape = SubResource("RectangleShape2D_tt8nk")
 
 [node name="EnemyGenerator2" parent="." instance=ExtResource("3_7tdlr")]
 z_index = 1
-position = Vector2(-1296, -938)
+position = Vector2(-1096, -945)
 
 [node name="EnemyGenerator3" parent="." instance=ExtResource("3_7tdlr")]
 z_index = 1
-position = Vector2(2741, -1332)
+position = Vector2(-500, -984)
+
+[node name="Fixer" parent="." instance=ExtResource("6_tt8nk")]
+z_index = 1
+position = Vector2(-1673, -1626)
+
+[connection signal="body_entered" from="Fixer" to="." method="_on_fixer_body_entered"]

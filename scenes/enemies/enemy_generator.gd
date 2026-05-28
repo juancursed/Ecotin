@@ -17,8 +17,10 @@ var player_in_range: bool = false
 @onready var spawn_timer: Timer = $SpawnTimer
 
 func _ready() -> void:
+	GAMEMANAGER.register_tower(self)
 	spawn_timer.wait_time = spawn_interval
-	spawn_timer.start()
+	spawn_timer.one_shot = false
+	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
@@ -52,6 +54,8 @@ func destroy() -> void:
 		collision.scale = Vector2(0.5,0.5)
 	else:
 		sprite.modulate = Color(0.4, 0.4, 0.4)  # gris si no hay sprite
+		
+	GAMEMANAGER.notify_tower_destroyed()
 
 	# Desactiva la colisión (ya no bloquea ni recibe daño)
 	#collision.set_deferred("disabled", true)
@@ -82,3 +86,7 @@ func spawn_enemy() -> void:
 
 	get_parent().add_child(enemy)
 	spawned_enemies.append(enemy)
+
+func set_aeolic_sprite() -> void:
+	if aeolic_sprite != null:
+		sprite.texture = aeolic_sprite

@@ -3,8 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://5qtobqgmk6hf" path="res://assets/items/bala.png" id="1_jfrgf"]
 [ext_resource type="Script" uid="uid://20qlja35x1q8" path="res://scenes/items/bullet.gd" id="1_tryqy"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tryqy"]
-size = Vector2(76, 36)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tryqy"]
+radius = 25.0
+height = 70.0
 
 [node name="Bullet" type="CharacterBody2D" groups=["bullet"]]
 z_index = 1
@@ -17,9 +18,11 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_jfrgf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, -1)
-shape = SubResource("RectangleShape2D_tryqy")
+position = Vector2(-5, 4.76837e-07)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_tryqy")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(-9.53674e-07, 0)
 
 [connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
