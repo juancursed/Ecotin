@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bk5lppk8vrnrb"]
+
+[ext_resource type="Texture2D" uid="uid://d5ddfl47g0ix" path="res://assets/player/sprite-max-px-frames-36-rows-6-cols-6 (1).png" id="1_8p05u"]
+[ext_resource type="Script" uid="uid://c8nh324kxe6pg" path="res://scenes/player/player.gd" id="1_eo61r"]
+[ext_resource type="PackedScene" uid="uid://d2bnsnr4jqqr1" path="res://scenes/items/bullet.tscn" id="2_mxepk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eo61r"]
+radius = 20.0
+height = 112.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mxepk"]
+radius = 16.0
+height = 86.0
+
+[node name="Playerobj" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_eo61r")
+speed = 800.0
+bullet_scene = ExtResource("2_mxepk")
+
+[node name="SpritePlayer" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_8p05u")
+hframes = 6
+region_enabled = true
+region_rect = Rect2(0, 0, 2220, 560)
+
+[node name="CollisionPlayer" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_eo61r")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionHitbox" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_mxepk")
+
+[node name="ReloadTimer" type="Timer" parent="."]

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://8jpskqn44orl"]
+
+[ext_resource type="Texture2D" uid="uid://b3fryuo87l2ll" path="res://icon.svg" id="1_6xk8f"]
+[ext_resource type="Script" uid="uid://4jy6r1prqpaj" path="res://scenes/enemies/enemy.gd" id="1_8e3ao"]
+[ext_resource type="PackedScene" uid="uid://d2bnsnr4jqqr1" path="res://scenes/items/bullet.tscn" id="2_38ino"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8e3ao"]
+radius = 824.119
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4w0hh"]
+radius = 63.0
+height = 270.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
+script = ExtResource("1_8e3ao")
+bullet_scene = ExtResource("2_38ino")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_6xk8f")
+
+[node name="AreaDetectionEnemy" type="Area2D" parent="."]
+
+[node name="CollisionDetectionEnemy" type="CollisionShape2D" parent="AreaDetectionEnemy"]
+shape = SubResource("CircleShape2D_8e3ao")
+metadata/_edit_lock_ = true
+
+[node name="CollisionEnemy" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
+shape = SubResource("CapsuleShape2D_4w0hh")
+
+[connection signal="body_entered" from="AreaDetectionEnemy" to="." method="_on_area_detection_enemy_body_entered"]

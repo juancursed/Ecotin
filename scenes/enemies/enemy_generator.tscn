@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsbjpf1s3oob"]
+
+[ext_resource type="Texture2D" uid="uid://d2a3qb1gr4m00" path="res://assets/enemies/torre_enemy.png" id="1_81ahh"]
+[ext_resource type="Script" uid="uid://detnhnsj2la2m" path="res://scenes/enemies/enemy_generator.gd" id="1_vrcf6"]
+[ext_resource type="PackedScene" uid="uid://8jpskqn44orl" path="res://scenes/enemies/enemy.tscn" id="2_jxrco"]
+[ext_resource type="Texture2D" uid="uid://c1wgbvp4o3geq" path="res://assets/items/escombro.png" id="3_yqimy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_81ahh"]
+radius = 86.0
+height = 430.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jxrco"]
+radius = 1245.15
+
+[node name="EnemyGenerator" type="StaticBody2D" groups=["enemy"]]
+script = ExtResource("1_vrcf6")
+enemy_scene = ExtResource("2_jxrco")
+destroyed_sprite = ExtResource("3_yqimy")
+
+[node name="SpriteEnemyGenerator" type="Sprite2D" parent="."]
+texture = ExtResource("1_81ahh")
+
+[node name="CollisionEnemyGenerator" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_81ahh")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="AreaDeteccion" type="Area2D" parent="."]
+
+[node name="AreaDeteccionGenerator" type="CollisionShape2D" parent="AreaDeteccion"]
+shape = SubResource("CircleShape2D_jxrco")
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="body_entered" from="AreaDeteccion" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="AreaDeteccion" to="." method="_on_detection_area_body_exited"]
