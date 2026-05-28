@@ -2325,10 +2325,6 @@ shape = SubResource("RectangleShape2D_tt8nk")
 z_index = 1
 position = Vector2(-1096, -945)
 
-[node name="EnemyGenerator3" parent="." instance=ExtResource("3_7tdlr")]
-z_index = 1
-position = Vector2(-500, -984)
-
 [node name="Fixer" parent="." instance=ExtResource("6_tt8nk")]
 z_index = 1
 position = Vector2(-1673, -1626)
