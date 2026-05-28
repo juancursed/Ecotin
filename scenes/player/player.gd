@@ -1,6 +1,8 @@
 # Player.gd
 extends CharacterBody2D
 
+@onready var _animation_player = $AnimationPlayer
+
 @export var speed: float = 400.0
 @export var life: float = 100
 @export var bullet_scene: PackedScene
@@ -31,6 +33,8 @@ func _physics_process(delta: float) -> void:
 
 	if direction != Vector2.ZERO:
 		last_direction = direction.normalized()
+	
+	_animation_player.play("idle")
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Filtra SOLO el botón izquierdo del mouse, sin afectar movimiento

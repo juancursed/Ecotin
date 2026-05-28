@@ -14,6 +14,10 @@ config/name="Ecotin"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GAMEMANAGER="*res://src/autoload/GameManager.gd"
+
 [display]
 
 window/size/viewport_width=1920

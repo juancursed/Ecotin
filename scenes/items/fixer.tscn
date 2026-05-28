@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtqhic7v7eqq6"]
+
+[ext_resource type="Texture2D" uid="uid://djqkt05aoypj1" path="res://assets/items/llave_inglesa.png" id="2_tmhlb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tmhlb"]
+radius = 11.0
+height = 108.0
+
+[node name="Fixer" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("CapsuleShape2D_tmhlb")
+
+[node name="SpriteLlave" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_tmhlb")
