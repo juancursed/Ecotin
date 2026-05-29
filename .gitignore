@@ -3,6 +3,8 @@
 .godot/
 
 # Godot-specific ignores
+*.import
+.godot/
 .import/
 export.cfg
 export_presets.cfg
