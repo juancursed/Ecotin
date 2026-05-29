@@ -10,6 +10,13 @@ func _ready() -> void:
 	rotation = direction.angle()
 	# Agrega el grupo por código como respaldo
 	add_to_group("bullet")
+	
+	if from_player:
+		collision_layer = 8   # capa 4
+		collision_mask = 6    # capas 2+3 (enemy + paredes)
+	else:
+		collision_layer = 8   # capa 4
+		collision_mask = 5  
 
 func _physics_process(delta: float) -> void:
 	velocity = direction * speed

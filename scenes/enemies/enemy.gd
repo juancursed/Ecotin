@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var bullet_scene: PackedScene  # arrastra Bullet.tscn aquí
 @export var shoot_interval: float = 2.0  # segundos entre disparos
 @export var spawn_distance: float = 40.0
+@export var stop_distance: float = 110.0 
+@export var comfort_margin: float = 60.0  
 
 var player: Node2D = null
 var shoot_timer: float = 0.0
@@ -12,10 +14,22 @@ var shoot_timer: float = 0.0
 func _physics_process(delta: float) -> void:
 	if player == null:
 		return
-
-	# Movimiento hacia el jugador
+	var dist := global_position.distance_to(player.global_position)
+	print("dist: ", dist, " stop: ", stop_distance)
 	var direction := (player.global_position - global_position).normalized()
-	velocity = direction * speed
+
+
+	if dist > stop_distance + comfort_margin:
+		# Muy lejos — se acerca
+		velocity = direction * speed
+	elif dist < stop_distance - comfort_margin:
+		# Muy cerca — retrocede suave
+		velocity = -direction * (speed * 0.3)
+	else:
+		# En la zona de confort — se queda quieto
+		velocity = Vector2.ZERO
+
+	
 	move_and_slide()
 
 	# Disparo periódico
