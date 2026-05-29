@@ -79,13 +79,40 @@ func _on_spawn_timer_timeout() -> void:
 
 func spawn_enemy() -> void:
 	var enemy := enemy_scene.instantiate()
-
-	# Posición aleatoria en un radio alrededor de la torre
-	var offset := Vector2.from_angle(randf() * TAU) * randf_range(20.0, spawn_radius)
-	enemy.global_position = global_position + offset
-
+	
+	# Intenta hasta 10 veces encontrar un punto libre
+	var spawn_pos := _get_safe_spawn_position()
+	enemy.global_position = spawn_pos
+	
+	# Espera un frame antes de añadir para evitar solapamiento de física
 	get_parent().add_child(enemy)
 	spawned_enemies.append(enemy)
+
+func _get_safe_spawn_position() -> Vector2:
+	var min_distance: float = 80.0   # distancia mínima desde el centro de la torre
+	var max_distance: float = 130.0  # distancia máxima
+
+	# 8 puntos fijos en círculo como opciones de spawn
+	var attempts := 8
+	for i in range(attempts):
+		var angle := (TAU / attempts) * i + randf() * 0.3  # pequeña variación
+		var distance := randf_range(min_distance, max_distance)
+		var candidate := global_position + Vector2.from_angle(angle) * distance
+
+		# Verifica que no haya un cuerpo físico en ese punto
+		var space := get_world_2d().direct_space_state
+		var query := PhysicsPointQueryParameters2D.new()
+		query.position = candidate
+		query.collision_mask = 0b0110  # capas de enemy y paredes
+		query.exclude = [self.get_rid()]
+
+		var results := space.intersect_point(query)
+		if results.is_empty():
+			return candidate  # punto libre encontrado
+
+	# Si ningún punto está libre, usa el más alejado como fallback
+	return global_position + Vector2.from_angle(randf() * TAU) * max_distance
+
 
 func set_aeolic_sprite() -> void:
 	if aeolic_sprite != null:

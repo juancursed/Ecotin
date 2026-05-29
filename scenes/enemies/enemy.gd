@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var bullet_scene: PackedScene
 @export var shoot_interval: float = 2.0
 @export var spawn_distance: float = 40.0
+@export var stop_distance: float = 110.0 
+@export var comfort_margin: float = 60.0  
 
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -32,11 +34,22 @@ func _physics_process(delta: float) -> void:
 		_show_only(sprite_idle)
 		_play_animation_if_needed("idle")
 		return
-
+	var dist := global_position.distance_to(player.global_position)
+	print("dist: ", dist, " stop: ", stop_distance)
 	var direction := (player.global_position - global_position).normalized()
-	last_direction = direction
 
-	velocity = direction * speed
+
+	if dist > stop_distance + comfort_margin:
+		# Muy lejos — se acerca
+		velocity = direction * speed
+	elif dist < stop_distance - comfort_margin:
+		# Muy cerca — retrocede suave
+		velocity = -direction * (speed * 0.3)
+	else:
+		# En la zona de confort — se queda quieto
+		velocity = Vector2.ZERO
+
+	
 	move_and_slide()
 
 	shoot_timer += delta

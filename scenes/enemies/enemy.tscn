@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://8jpskqn44orl"]
+[gd_scene load_steps=6 format=3 uid="uid://8jpskqn44orl"]
 
 [ext_resource type="Script" uid="uid://4jy6r1prqpaj" path="res://scenes/enemies/enemy.gd" id="1_8e3ao"]
 [ext_resource type="PackedScene" uid="uid://d2bnsnr4jqqr1" path="res://scenes/items/bullet.tscn" id="2_38ino"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dy26gnwiihdl7" path="res://assets/enemies/Shooting Left.png" id="9_p7w77"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e3ao"]
-radius = 104.388695
+radius = 323.13
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4w0hh"]
 radius = 63.0
@@ -230,6 +230,8 @@ _data = {
 
 [node name="Enemy" type="CharacterBody2D" unique_id=379124269 groups=["enemy"]]
 z_index = 1
+collision_layer = 2
+collision_mask = 8
 script = ExtResource("1_8e3ao")
 bullet_scene = ExtResource("2_38ino")
 
@@ -243,18 +245,16 @@ vframes = 4
 region_enabled = true
 region_rect = Rect2(0, 1, 408, 524)
 
-[node name="AreaDetectionEnemy" type="Area2D" parent="." unique_id=996790080]
+[node name="AreaDetectionEnemy" type="Area2D" parent="."]
 
-[node name="CollisionDetectionEnemy" type="CollisionShape2D" parent="AreaDetectionEnemy" unique_id=393515973]
+[node name="CollisionDetectionEnemy" type="CollisionShape2D" parent="AreaDetectionEnemy"]
 shape = SubResource("CircleShape2D_8e3ao")
-metadata/_edit_lock_ = true
 
-[node name="CollisionEnemy" type="CollisionShape2D" parent="." unique_id=842121052]
+[node name="CollisionEnemy" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_4w0hh")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1513235315]
-libraries/ = SubResource("AnimationLibrary_nb6gf")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 speed_scale = 0.77
 
 [node name="SpriteWR" type="Sprite2D" parent="." unique_id=1525284545]

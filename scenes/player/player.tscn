@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bk5lppk8vrnrb"]
+[gd_scene load_steps=8 format=3 uid="uid://bk5lppk8vrnrb"]
 
 [ext_resource type="Script" uid="uid://c8nh324kxe6pg" path="res://scenes/player/player.gd" id="1_eo61r"]
 [ext_resource type="PackedScene" uid="uid://d2bnsnr4jqqr1" path="res://scenes/items/bullet.tscn" id="2_mxepk"]
@@ -243,23 +243,22 @@ region_enabled = true
 region_rect = Rect2(0, 0, 317, 533)
 region_filter_clip_enabled = true
 
-[node name="CollisionPlayer" type="CollisionShape2D" parent="." unique_id=1396180473]
+[node name="CollisionPlayer" type="CollisionShape2D" parent="."]
 position = Vector2(-14, 3)
 shape = SubResource("CapsuleShape2D_eo61r")
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2087394677]
+[node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(-19, -2)
 
-[node name="CollisionHitbox" type="CollisionShape2D" parent="Hitbox" unique_id=233572554]
+[node name="CollisionHitbox" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(6, 4)
 shape = SubResource("CapsuleShape2D_mxepk")
 
-[node name="ReloadTimer" type="Timer" parent="." unique_id=899586309]
+[node name="ReloadTimer" type="Timer" parent="."]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1712340187]
-libraries/ = SubResource("AnimationLibrary_p47bc")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
-[node name="SpriteWR" type="Sprite2D" parent="." unique_id=381195252]
+[node name="SpriteWR" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
 texture = ExtResource("4_lvxji")
