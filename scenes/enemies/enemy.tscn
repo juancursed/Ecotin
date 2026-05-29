@@ -1,33 +1,82 @@
-[gd_scene load_steps=6 format=3 uid="uid://8jpskqn44orl"]
+[gd_scene format=3 uid="uid://8jpskqn44orl"]
 
-[ext_resource type="Texture2D" uid="uid://b3fryuo87l2ll" path="res://icon.svg" id="1_6xk8f"]
 [ext_resource type="Script" uid="uid://4jy6r1prqpaj" path="res://scenes/enemies/enemy.gd" id="1_8e3ao"]
 [ext_resource type="PackedScene" uid="uid://d2bnsnr4jqqr1" path="res://scenes/items/bullet.tscn" id="2_38ino"]
+[ext_resource type="Texture2D" uid="uid://dsqrtgcg8ykv" path="res://assets/enemies/idle Enemies.png" id="3_38ino"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e3ao"]
-radius = 824.119
+radius = 104.388695
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4w0hh"]
 radius = 63.0
-height = 270.0
+height = 230.0
 
-[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+[sub_resource type="Animation" id="Animation_fcftc"]
+resource_name = "Idle"
+length = 1.1
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.33333334, 0.4, 0.46666667, 0.56666666, 0.7, 0.76666665, 0.8333333, 0.93333334, 1, 1.3717),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_lu5c6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nb6gf"]
+_data = {
+&"Idle": SubResource("Animation_fcftc"),
+&"RESET": SubResource("Animation_lu5c6")
+}
+
+[node name="Enemy" type="CharacterBody2D" unique_id=379124269 groups=["enemy"]]
 z_index = 1
 script = ExtResource("1_8e3ao")
 bullet_scene = ExtResource("2_38ino")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1276606460]
+texture_filter = 1
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("1_6xk8f")
+texture = ExtResource("3_38ino")
+hframes = 4
+vframes = 4
+region_enabled = true
+region_rect = Rect2(0, 0, 408, 524)
 
-[node name="AreaDetectionEnemy" type="Area2D" parent="."]
+[node name="AreaDetectionEnemy" type="Area2D" parent="." unique_id=996790080]
 
-[node name="CollisionDetectionEnemy" type="CollisionShape2D" parent="AreaDetectionEnemy"]
+[node name="CollisionDetectionEnemy" type="CollisionShape2D" parent="AreaDetectionEnemy" unique_id=393515973]
 shape = SubResource("CircleShape2D_8e3ao")
 metadata/_edit_lock_ = true
 
-[node name="CollisionEnemy" type="CollisionShape2D" parent="."]
+[node name="CollisionEnemy" type="CollisionShape2D" parent="." unique_id=842121052]
 position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_4w0hh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1513235315]
+libraries/ = SubResource("AnimationLibrary_nb6gf")
+speed_scale = 0.77
+
+[node name="Walking Left" type="AnimationPlayer" parent="AnimationPlayer" unique_id=827431740]
 
 [connection signal="body_entered" from="AreaDetectionEnemy" to="." method="_on_area_detection_enemy_body_entered"]

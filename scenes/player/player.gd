@@ -1,7 +1,6 @@
-# Player.gd
 extends CharacterBody2D
 
-@onready var _animation_player = $AnimationPlayer
+@onready var _animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var speed: float = 400.0
 @export var life: float = 100
@@ -9,7 +8,7 @@ extends CharacterBody2D
 @export var spawn_distance: float = 40.0
 
 # --- Disparo ---
-@export var max_ammo: int = 12
+@export var max_ammo: int = 30
 @export var reload_time: float = 3.0
 
 var last_direction: Vector2 = Vector2.RIGHT
@@ -28,16 +27,33 @@ func _physics_process(delta: float) -> void:
 		Input.get_axis("IZQUIERDA", "DERECHA"),
 		Input.get_axis("ARRIBA", "ABAJO")
 	)
+
 	velocity = direction.normalized() * speed
 	move_and_slide()
 
 	if direction != Vector2.ZERO:
 		last_direction = direction.normalized()
-	
-	_animation_player.play("idle")
+		_play_walk_animation(direction)
+	else:
+		_play_animation_if_needed("idle")
+
+func _play_walk_animation(direction: Vector2) -> void:
+	if abs(direction.x) > abs(direction.y):
+		if direction.x > 0:
+			_play_animation_if_needed("Walking_Right")
+		else:
+			_play_animation_if_needed("walk_left")
+	else:
+		if direction.y > 0:
+			_play_animation_if_needed("walk_down")
+		else:
+			_play_animation_if_needed("walk_up")
+
+func _play_animation_if_needed(animation_name: String) -> void:
+	if _animation_player.current_animation != animation_name:
+		_animation_player.play(animation_name)
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Filtra SOLO el botón izquierdo del mouse, sin afectar movimiento
 	if event is InputEventMouseButton \
 	and event.button_index == MOUSE_BUTTON_LEFT \
 	and event.pressed:
@@ -52,7 +68,6 @@ func shoot() -> void:
 		return
 
 	var bullet := bullet_scene.instantiate()
-	# Usa last_direction que viene del movimiento, nunca del mouse
 	bullet.global_position = global_position + last_direction * spawn_distance
 	bullet.direction = last_direction
 	bullet.rotation = last_direction.angle()
@@ -61,7 +76,6 @@ func shoot() -> void:
 	get_parent().add_child(bullet)
 
 	ammo -= 1
-	#print("Balas: ", ammo, " / ", max_ammo)
 
 	if ammo <= 0:
 		start_reload()
