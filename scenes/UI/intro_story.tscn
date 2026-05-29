@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dw830boe05xmm"]
+
+[node name="IntroStory" type="Control" unique_id=1539960229]
+layout_mode = 3
+anchors_preset = 0
