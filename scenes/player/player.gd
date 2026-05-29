@@ -33,8 +33,12 @@ func _physics_process(delta: float) -> void:
 
 	if direction != Vector2.ZERO:
 		last_direction = direction.normalized()
+		$SpritePlayer.visible=false
+		$SpriteWR.visible=true
 		_play_walk_animation(direction)
 	else:
+		$SpritePlayer.visible=true
+		$SpriteWR.visible=false
 		_play_animation_if_needed("idle")
 
 func _play_walk_animation(direction: Vector2) -> void:
